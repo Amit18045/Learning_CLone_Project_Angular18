@@ -1,1 +1,19 @@
-/* You can add global styles to this file, and also import other style files */
+.navbar {
+    background-color: #313e4a;
+}
+
+.navbar .nav-link,
+.navbar-brand {
+    color: white !important;
+}
+
+.navbar .btn {
+    color: #1a73e8 !important;
+}
+
+.btn-primary {
+    background-color: #34495e !important;
+    border: #34495e !important;
+    ;
+}
+
