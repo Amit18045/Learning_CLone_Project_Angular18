@@ -3,11 +3,12 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 import { IApiResponse, Login, User } from './model/master.mode';
 import { FormsModule } from '@angular/forms';
 import { CourseService } from './services/course.service';
-
+import * as CryptoJS from 'crypto-js';
+import { Constant } from './constant';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, FormsModule,RouterLink],
+  imports: [RouterOutlet, FormsModule, RouterLink],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -63,10 +64,20 @@ export class AppComponent {
       debugger
       if (res.result) {
         alert("Login");
+        const username=this.encriptData(res.data.fullName);
+        const name =this.descriptionData(username);
         localStorage.setItem('learningData', JSON.stringify(res.data));
         this.loggedUserData = res.data;
         this.closeModel();
       }
     })
+  }
+
+  encriptData(data: any) {
+    return CryptoJS.AES.encrypt(data, Constant.ENDE_KEY).toString();
+  }
+  descriptionData(data: any){
+    const descriptionName= CryptoJS.AES.decrypt(data,Constant.ENDE_KEY);
+    return descriptionName.toString(CryptoJS.enc.Utf8);
   }
 }
